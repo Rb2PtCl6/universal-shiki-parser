@@ -1,0 +1,14 @@
+{
+  "name": "universal-shiki-parser",
+  "version": "1.0.0",
+  "description": "Parser to get some data from shikimori",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "dependencies": {
+    "node-shikimori-api": "^1.1.3"
+  }
+}
