@@ -4,6 +4,11 @@ const fs = require('fs');
 const shiki = new Shikimori();
 const user_id = 937225;
 const dateUTC = +new Date
+const additional_path = `recived_data/${dateUTC}`
+
+function create_out_dir(dir_name){
+    fs.mkdirSync(dir_name)
+}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -56,7 +61,7 @@ async function getUserData(this_user_id, type) {
             limit: 1000
         });
 
-        const rawFilePath = `${this_user_id}-${section}-full-raw-${dateUTC}.json`;
+        const rawFilePath = `${additional_path}/${this_user_id}-${section}-full-raw-${dateUTC}.json`;
         fs.writeFileSync(rawFilePath, JSON.stringify(res));
 
         const content_ids = processor(res)
@@ -69,12 +74,14 @@ async function getUserData(this_user_id, type) {
             await myFunction();
         }
 
-        const infoFilePath = `${this_user_id}-${fileName}-full-${dateUTC}.json`;
+        const infoFilePath = `${additional_path}/${this_user_id}-${fileName}-full-${dateUTC}.json`;
         fs.appendFileSync(infoFilePath, JSON.stringify(full_info));
     } catch (err) {
         console.log(err);
     }
 }
+
+create_out_dir(additional_path)
 
 async function main() {
     await getUserData(user_id, "anime");
